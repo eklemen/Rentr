@@ -1,4 +1,5 @@
 from django.http import Http404
+from RentrApp.models import RentableObject
 from RentrApp.serializers import RentableObjectSerializer
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,7 +11,7 @@ from rest_framework.views import APIView
 class RentableObjectList(APIView):
 
     # Returns a list of rentableObjects
-    def get(self, request, format='json'):
+    def get(self, request, store, format='json'):
         rentals = RentableObject.objects.all()
         serializer = RentableObjectSerializer(rentals, many=True)
         return Response(serializer.data)
