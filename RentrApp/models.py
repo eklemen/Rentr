@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 MAX_SIZE = 100
 
-class RentableObject(models.Model):
+class Rentable(models.Model):
     type = models.CharField(max_length=MAX_SIZE,default='No Type')
     isRented = models.BooleanField(default=False)
     dateRented = models.DateTimeField(null=True)

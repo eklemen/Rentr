@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'rentableObject/$', views.RentableObjectList.as_view(), name='rentableObjectList'),
-    url(r'rentableObject/(?P<pk>[0-9]+)/$', views.RentableObjectDetail.as_view(), name='rentableObject'),
+    url(r'rentable/$', views.RentableList.as_view(), name='rentableList'),
+    url(r'rentable/(?P<pk>[0-9]+)/$', views.RentableDetail.as_view(), name='rentable'),
 )

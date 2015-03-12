@@ -1,6 +1,6 @@
 from django.http import Http404
-from RentrApp.models import RentableObject
-from RentrApp.serializers import RentableObjectSerializer
+from RentrApp.models import Rentable
+from RentrApp.serializers import RentableSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,42 +8,42 @@ from rest_framework.views import APIView
 # Create your views here.
 
 # Rental List
-class RentableObjectList(APIView):
+class RentableList(APIView):
 
-    # Returns a list of rentableObjects
-    def get(self, request, store, format='json'):
-        rentals = RentableObject.objects.all()
-        serializer = RentableObjectSerializer(rentals, many=True)
+    # Returns a list of rentables
+    def get(self, request, format='json'):
+        rentals = Rentable.objects.all()
+        serializer = RentableSerializer(rentals, many=True)
         return Response(serializer.data)
 
-    # Creates a new rentableObject
+    # Creates a new rentable
     def post(self, request, format='json'):
-        serializer = RentableObjectSerializer(data=request.data)
+        serializer = RentableSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class RentableObjectDetail(APIView):
+class RentableDetail(APIView):
 
     # If object dosen't exsist throw a 404
-    # Passes the rentableObject to the get function
+    # Passes the rentable to the get function
     def get_object(self, pk):
         try:
-            return RentableObject.objects.get(pk=pk)
-        except RentableObject.DoesNotExist:
+            return Rentable.objects.get(pk=pk)
+        except Rentable.DoesNotExist:
             raise Http404
 
-    # Serializes the rentableObject and returns the individual rentableObject
+    # Serializes the rentable and returns the individual rentable
     def get(self, request, pk, format='json'):
         rental = self.get_object(pk)
-        serializer = RentableObjectSerializer(rental)
+        serializer = RentableSerializer(rental)
         return Response(serializer.data)
 
     # Updates the rentableObject when POST request
     def post(self, request, pk, format='json'):
         rental = self.get_object(pk)
-        serializer = RentableObjectSerializer(rental, data=request.data)
+        serializer = RentableSerializer(rental, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
