@@ -14,9 +14,9 @@ class RentableList(APIView):
     def get(self, request, format='json'):
         store = request.GET.get('store')
         if store != None:
-            rentals = Rentable.objects.all()
-        else:
             rentals = Rentable.objects.all(store=store)
+        else:
+            rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
         return Response(serializer.data)
 
