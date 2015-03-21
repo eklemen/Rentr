@@ -32,7 +32,7 @@ class RentableDetail(APIView):
 
     # If object dosen't exsist throw a 404
     # Passes the rentable to the get function
-    def get_object(self, pk):
+    def get_object(self, pk, format='json'):
         try:
             return Rentable.objects.get(pk=pk)
         except Rentable.DoesNotExist:

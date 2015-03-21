@@ -1,3 +1,4 @@
+import json
 from django.core.urlresolvers import reverse
 from setuptools.compat import unicode
 from rest_framework import status
@@ -59,7 +60,7 @@ class RentableTestCase(APITestCase):
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),
                 'price': x}
-            response = self.client.post(url, data, format='json')
+            self.client.post(url, data, format='json')
         getResponse = self.client.get(url, format='json')
         print("Number of returned objects")
         print("Expected 5")
@@ -75,3 +76,30 @@ class RentableTestCase(APITestCase):
         getResponse = self.client.get(url, format='json')
         print("Expected []")
         print("Returned %s" % (getResponse.data))
+
+class RentableDetailTestCase(APITestCase):
+
+    def test_get_rentable_detail(self):
+        print("***************************************************")
+        print("Test using a GET to get a rentable by a specific pk")
+        print("***************************************************")
+        createUrl = reverse('rentableList')
+        data = {'store': None,
+                'type': unicode('WaveRunner'),
+                'isRented': True,
+                'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
+                'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),
+                'price': 50.00}
+        postResponse = self.client.post(createUrl, data, format='json')
+        getResponse = self.client.get('/rentable/?pk=1', format='json')
+        print("Expected: %s" % (postResponse.data))
+        print("Returned: %s" % (getResponse.data[0]))
+        self.assertEqual(getResponse.data[0], postResponse.data)
+
+    def test_get_invlaid_rentable(self):
+        print("*******************************************************")
+        print("Test using a GET to get a 404 when no rentable is found")
+        print("*******************************************************")
+        getResponse = self.client.get('/rentable/?pk=5', format='json')
+        self.assertNotEqual(getResponse.status_code, status.HTTP_404_NOT_FOUND, msg="Expecting a 404 Error")
