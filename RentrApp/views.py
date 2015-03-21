@@ -1,6 +1,6 @@
 from django.http import Http404
-from RentrApp.models import Rentable
-from RentrApp.serializers import RentableSerializer
+from RentrApp.models import Rentable, Store
+from RentrApp.serializers import RentableSerializer, StoreSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -52,3 +52,16 @@ class RentableDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class StoreDetail(APIView):
+
+    def get_object(self, pk, format='json'):
+        try:
+            return Store.objects.get(pk=pk)
+        except Store.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format='json'):
+        store = self.get_object(pk)
+        serializer = StoreSerializer(store)
+        return Response(serializer.data)
