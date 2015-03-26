@@ -65,3 +65,19 @@ class StoreDetail(APIView):
         store = self.get_object(pk)
         serializer = StoreSerializer(store)
         return Response(serializer.data)
+
+    def post(self, request, format='json'):
+        serializer = StoreSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Store List
+class StoreList(APIView):
+
+    # Returns a list of stores
+    def get(self, request, format='json'):
+        stores = Store.objects.all()
+        serializer = StoreSerializer(stores, many=True)
+        return Response(serializer.data)
