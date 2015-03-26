@@ -4,7 +4,7 @@ from setuptools.compat import unicode
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-# Create your tests here.
+# Create your tests here
 
 class RentableTestCase(APITestCase):
 
