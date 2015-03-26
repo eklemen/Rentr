@@ -1,4 +1,4 @@
 from django.contrib import admin
-from Rentr.models import Store
+from RentrApp.models import Store
 
 admin.site.register(Store)
