@@ -102,7 +102,6 @@ class RentableDetailTestCase(APITestCase):
         print("Test using a GET to get a 404 when no rentable is found")
         print("*******************************************************")
         getResponse = self.client.get('/rentable/?pk=5', format='json')
-        print getResponse.status_code
         self.assertEqual(getResponse.status_code, status.HTTP_404_NOT_FOUND, msg="Expecting a 404 Error")
 
 class StoreDetailTestCase(APITestCase):
