@@ -97,7 +97,7 @@ class RentableDetailTestCase(APITestCase):
         print("Returned: %s" % (getResponse.data[0]))
         self.assertEqual(getResponse.data[0], postResponse.data)
 
-    def test_get_invlaid_rentable(self):
+    def test_get_invalid_rentable(self):
         print("*******************************************************")
         print("Test using a GET to get a 404 when no rentable is found")
         print("*******************************************************")
