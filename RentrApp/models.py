@@ -14,7 +14,7 @@ class Rentable(models.Model):
     store = models.ForeignKey('Store', null=True)
     
 class Store(models.Model):
-    name = models.CharField(max_length=MAX_SIZE,default='No Type')
-    address = models.CharField(max_length=MAX_SIZE,default='No Type')
-    phoneNum = models.CharField(max_length=MAX_SIZE,default='No Type')
+    name = models.CharField(max_length=MAX_SIZE,default='Default Store Name')
+    address = models.CharField(max_length=MAX_SIZE,default='Default Store Address')
+    phoneNum = models.CharField(max_length=MAX_SIZE,default='Default Store Phone Number')
 
