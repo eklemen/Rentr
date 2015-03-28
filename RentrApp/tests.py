@@ -19,8 +19,7 @@ class RentableTestCase(APITestCase):
                 'isRented': True,
                 'dateRented': unicode('2015-03-11T23:29:56.947000Z'),  
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),     
-                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'), 
-                'price': 50.00}
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         print("Expected Status Code %s" % (status.HTTP_201_CREATED))
@@ -39,8 +38,7 @@ class RentableTestCase(APITestCase):
                 'isRented': '',
                 'dateRented': '',
                 'dateDue': '',
-                'dateReturned': '',
-                'price': ''}
+                'dateReturned': '',}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         print("Expected Status Code %s" % (status.HTTP_400_BAD_REQUEST))
@@ -58,8 +56,7 @@ class RentableTestCase(APITestCase):
                 'isRented': True,
                 'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
-                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),
-                'price': x}
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
             self.client.post(url, data, format='json')
         getResponse = self.client.get(url, format='json')
         print("Number of returned objects")
@@ -89,8 +86,7 @@ class RentableDetailTestCase(APITestCase):
                 'isRented': True,
                 'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
-                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),
-                'price': 50.00}
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
         postResponse = self.client.post(createUrl, data, format='json')
         getResponse = self.client.get('/rentable/?pk=1', format='json')
         print("Expected: %s" % (postResponse.data))
@@ -101,8 +97,37 @@ class RentableDetailTestCase(APITestCase):
         print("*******************************************************")
         print("Test using a GET to get a 404 when no rentable is found")
         print("*******************************************************")
-        getResponse = self.client.get('/rentable/?pk=5', format='json')
-        self.assertEqual(getResponse.status_code, status.HTTP_404_NOT_FOUND, msg="Expecting a 404 Error")
+        url = reverse('rentable', args='5')
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        print("Expected Status Code %s" % (status.HTTP_404_NOT_FOUND))
+        print("Returned Status Code %s" % (response.status_code))
+        
+        
+    # Tests creating a rentable with a POST
+    def test_create_rentable(self):
+        print("********************************************")
+        print("Test the creation of a rentable using a POST")
+        print("********************************************")
+        url = reverse('rentableList')
+        data = {'store': None,
+                'type': unicode('WaveRunner'),
+                'isRented': True,
+                'dateRented': unicode('2015-03-11T23:29:56.947000Z'),  
+                'dateDue': unicode('2015-03-11T23:29:56.947000Z'),     
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),} 
+        response = self.client.post(url, data, format='json')
+        # Now edit the data
+        url = reverse('rentable', args='1')
+        data['isRented'] = False
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print("Expected Status Code %s" % (status.HTTP_200_OK))
+        print("Returned Status Code %s" % (response.status_code))
+        self.assertEqual(response.data, data)
+        print(response.data)
+
+
 
 class StoreDetailTestCase(APITestCase):
     
