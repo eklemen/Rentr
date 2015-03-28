@@ -127,7 +127,32 @@ class RentableDetailTestCase(APITestCase):
         self.assertEqual(response.data, data)
         print(response.data)
 
-
+    # Negative test for creating a rentable
+    def test_create_invalid_rentable(self):
+        print("*****************************************************")
+        print("Test the creation of an invalid rentable using a POST")
+        print("*****************************************************")
+        # Create Rentable
+        url = reverse('rentableList')
+        data = {'store': None,
+                'type': unicode('WaveRunner'),
+                'isRented': True,
+                'dateRented': unicode('2015-03-11T23:29:56.947000Z'),  
+                'dateDue': unicode('2015-03-11T23:29:56.947000Z'),     
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),} 
+        response = self.client.post(url, data, format='json')
+        # Edit rentable
+        url = reverse('rentable', args="1")
+        data = {'store': '',
+                'type': '',
+                'isRented': '',
+                'dateRented': '',
+                'dateDue': '',
+                'dateReturned': '',}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        print("Expected Status Code %s" % (status.HTTP_400_BAD_REQUEST))
+        print("Returned Status Code %s" % (response.status_code))
 
 class StoreDetailTestCase(APITestCase):
     
