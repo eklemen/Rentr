@@ -25,5 +25,5 @@ class Rental(models.Model):
     custPhoneNum = models.CharField(max_length=MAX_SIZE,default='Default Customer Phone Number')
     custEmail = models.CharField(max_length=MAX_SIZE,default='Default Customer Email')
     price = models.FloatField(default=0.00)
-    rentableID = models.ForeignKey('Rentable', null=True)
+    rentable = models.ForeignKey('Rentable', null=True)
 
