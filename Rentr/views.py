@@ -10,7 +10,6 @@ def index(request):
 
 def user_login(request):
     context = RequestContext(request)
-    print "FUCK"
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -23,7 +22,6 @@ def user_login(request):
                 return HttpResponseRedirect('/')
             else:
                 error = {'error': "Your account is disabled."}
-                print "FUCK"
                 return render_to_response('registration/login.html', error, context)
         else:
             error = {'error': "Invalid username and/or password"}
