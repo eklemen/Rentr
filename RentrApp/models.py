@@ -21,9 +21,9 @@ class Store(models.Model):
     
 # tracks who has rented what
 class Rental(models.Model):
-    custName = models.CharField(max_length=MAX_SIZE,default='Default Customer Name')
-    custPhoneNum = models.CharField(max_length=MAX_SIZE,default='Default Customer Phone Number')
-    custEmail = models.CharField(max_length=MAX_SIZE,default='Default Customer Email')
+    cusName = models.CharField(max_length=MAX_SIZE,default='Default Customer Name')
+    cusPhoneNum = models.CharField(max_length=MAX_SIZE,default='Default Customer Phone Number')
+    cusEmail = models.CharField(max_length=MAX_SIZE,default='Default Customer Email')
     price = models.FloatField(default=0.00)
     rentable = models.ForeignKey('Rentable', null=True)
 
