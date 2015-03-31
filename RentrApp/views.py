@@ -60,7 +60,7 @@ class StoreDetail(APIView):
         serializer = StoreSerializer(store)
         return Response(serializer.data)
 
-    # Store List
+    #  Store List
 class StoreList(APIView):
 
     # Returns a list of stores
