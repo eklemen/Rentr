@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 
 # Create your tests here
 
-class RentableTestCase(APITestCase):
+class RentableListTestCase(APITestCase):
 
     # Tests creating a rentable with a POST
     def test_create_rentable(self):
@@ -72,7 +72,7 @@ class RentableTestCase(APITestCase):
         print("**********************************************")
         getResponse = self.client.get(url, format='json')
         print("Expected []")
-        print("Returned %s" % (getResponse.data))
+        print("Returned %s" % getResponse.data)
 
 class RentableDetailTestCase(APITestCase):
 
@@ -86,12 +86,13 @@ class RentableDetailTestCase(APITestCase):
                 'isRented': True,
                 'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
-                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z')}
         postResponse = self.client.post(createUrl, data, format='json')
-        getResponse = self.client.get('/rentable/?pk=1', format='json')
-        print("Expected: %s" % (postResponse.data))
-        print("Returned: %s" % (getResponse.data[0]))
-        self.assertEqual(getResponse.data[0], postResponse.data)
+        url = reverse('rentable', args="1")
+        getResponse = self.client.get(url, format='json')
+        print("Expected: %s" % postResponse.data)
+        print("Returned: %s" % getResponse.data)
+        self.assertEqual(getResponse.data, postResponse.data)
 
     def test_get_invalid_rentable(self):
         print("*******************************************************")
@@ -156,15 +157,86 @@ class RentableDetailTestCase(APITestCase):
 
 class StoreDetailTestCase(APITestCase):
     
+    def test_get_store_detail(self):
+        print("***************************************************")
+        print("Test using a GET to get a store by a specific pk")
+        print("***************************************************")
+        createUrl = reverse('storeList')
+        data = {'name': unicode('Hooters'),
+                'address': unicode('123 FunLane'),
+                'phoneNum': unicode('850-342-8543')}
+        postResponse = self.client.post(createUrl, data, format='json')
+        url = reverse('store', args="1")
+        getResponse = self.client.get(url, format='json')
+        print("Expected: %s" % postResponse.data)
+        print("Returned: %s" % getResponse.data)
+        self.assertEqual(getResponse.data, postResponse.data)
+
     def test_get_invalid_store(self):
         print("*******************************************************")
         print("Test using a GET to get a 404 when no store is found")
         print("*******************************************************")
-        getResponse = self.client.get('/store/?pk=5', format='json')
-        self.assertEqual(getResponse.status_code, status.HTTP_404_NOT_FOUND, msg="Expecting a 404 Error")
+        url = reverse('store', args='5')
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        print("Expected Status Code %s" % status.HTTP_404_NOT_FOUND)
+        print("Returned Status Code %s" % response.status_code)
 
+class StoreListTestCase(APITestCase):
 
+    # Using a GET returns a list of all objects
+    def test_store_list(self):
+        url = reverse('storeList')
+        print("***********************************")
+        print("Test using a GET to get all objects")
+        print("***********************************")
+        for x in range(0, 5):
+            data = {'name': unicode('Hooters'),
+                    'address': unicode('123 Fun Lane'),
+                    'phoneNum': unicode('850-657-9384')}
+            self.client.post(url, data, format='json')
+        getResponse = self.client.get(url, format='json')
+        print("Number of returned objects")
+        print("Expected 5")
+        print("Returned %s" % (len(getResponse.data)))
+        self.assertEqual(len(getResponse.data), 5)
 
+    # Using a Get when no store are saved returns an empty array
+    def test_empty_store_list(self):
+        url = reverse('storeList')
+        print("**********************************************")
+        print("Test using a GET to get an empty store list")
+        print("**********************************************")
+        getResponse = self.client.get(url, format='json')
+        print("Expected []")
+        print("Returned %s" % getResponse.data)
 
+    # Tests creating a store with a POST
+    def test_create_store(self):
+        print("********************************************")
+        print("Test the creation of a store using a POST")
+        print("********************************************")
+        url = reverse('storeList')
+        data = {'name': unicode('Hooters'),
+                'address': unicode('123 Fun Lane'),
+                'phoneNum': unicode('850-374-9283')}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        print("Expected Status Code %s" % (status.HTTP_201_CREATED))
+        print("Returned Status Code %s" % (response.status_code))
+        self.assertEqual(response.data, data)
+        print(response.data)
 
- 
+    # Negative test for creating a store
+    def test_create_invalid_store(self):
+        print("*****************************************************")
+        print("Test the creation of an invalid store using a POST")
+        print("*****************************************************")
+        url = reverse('storeList')
+        data = {'name': '',
+                'address': '',
+                'phoneNum': ''}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        print("Expected Status Code %s" % status.HTTP_400_BAD_REQUEST)
+        print("Returned Status Code %s" % response.status_code)

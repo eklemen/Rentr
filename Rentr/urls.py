@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^login/$', auth_views.user_login, name="login"), 
     url(r'rentable/(?P<pk>[0-9]+)/$', views.RentableDetail.as_view(), name='rentable'),
     url(r'store/(?P<pk>[0-9]+)/$', views.StoreDetail.as_view(), name='store'),
+    url(r'store/$', views.StoreList.as_view(), name='storeList')
     )
 

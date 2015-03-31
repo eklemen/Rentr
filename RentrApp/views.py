@@ -12,11 +12,7 @@ class RentableList(APIView):
 
     # Returns a list of rentables
     def get(self, request, format='json'):
-        store = request.GET.get('store')
-        if store != None:
-            rentals = Rentable.objects.all(store=store)
-        else:
-            rentals = Rentable.objects.all()
+        rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
         return Response(serializer.data)
 
@@ -30,8 +26,6 @@ class RentableList(APIView):
 
 class RentableDetail(APIView):
 
-    # If object dosen't exsist throw a 404
-    # Passes the rentable to the get function
     def get_object(self, pk, format='json'):
         try:
             return Rentable.objects.get(pk=pk)
@@ -66,13 +60,6 @@ class StoreDetail(APIView):
         serializer = StoreSerializer(store)
         return Response(serializer.data)
 
-    def post(self, request, format='json'):
-        serializer = StoreSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     # Store List
 class StoreList(APIView):
 
@@ -81,3 +68,10 @@ class StoreList(APIView):
         stores = Store.objects.all()
         serializer = StoreSerializer(stores, many=True)
         return Response(serializer.data)
+
+    def post(self, request, format='json'):
+        serializer = StoreSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
