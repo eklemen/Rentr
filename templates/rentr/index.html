@@ -55,22 +55,22 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="{% static "js/jquery.js" %}" rel="stylesheet">
+    <script src="{% static "js/jquery.js" %}" rel="stylesheet" />
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet">
+    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet" />
 
     <!-- SideBar GET Store Script -->
     <script>
-        $(document).ready( function (){
-                    $.getJSON("/store", function( data ) {
-                        $.each(data, function(key, val){
-                            $(".sidebar-nav").append(
-                                    "<li class=\"sidebar-brand\"> <a href=\"/store/" + key + "\">" + val.name + "</a></li>"
-                            );
-                        })
-                    });
-                });
+    $(document).ready( function (){
+        $.getJSON("/store", function( data ) {
+            $.each(data, function(key, val){
+                $(".sidebar-nav").append(
+                    "<li class=\"sidebar-brand\"> <a href=\"/store/" + key + "\">" + val.name + "</a></li>"
+                );
+           })
+        });
+    });
     </script>
 </body>
 
