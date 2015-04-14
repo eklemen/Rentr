@@ -13,11 +13,17 @@ class Rentable(models.Model):
     image = models.ImageField(null=True)
     store = models.ForeignKey('Store', null=True)
 
+    def __str__(self):
+        return self.type
+
 # store information
 class Store(models.Model):
     name = models.CharField(max_length=MAX_SIZE,default='Default Store Name')
     address = models.CharField(max_length=MAX_SIZE,default='Default Store Address')
     phoneNum = models.CharField(max_length=MAX_SIZE,default='Default Store Phone Number')
+
+    def __str__(self):
+        return self.name
     
 # tracks who has rented what
 class Rental(models.Model):
@@ -26,4 +32,7 @@ class Rental(models.Model):
     cusEmail = models.CharField(max_length=MAX_SIZE,default='Default Customer Email')
     price = models.FloatField(default=0.00)
     rentable = models.ForeignKey('Rentable', null=True)
+
+    def __str__(self):
+        return self.cusName
 
