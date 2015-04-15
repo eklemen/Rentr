@@ -11,7 +11,8 @@ from rest_framework.views import APIView
 class RentableList(APIView):
 
     # Returns a list of rentables
-    def get(self, request, store, format='json'):
+    def get(self, request, format='json'):
+        store = request.get("store")
         if store != None:
             rentals = Rentable.objects.filter(store=store)
         else:
