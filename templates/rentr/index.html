@@ -48,17 +48,28 @@
             <div class="row text-center">
                 <div class="col-lg-12">
                     <h1>Welcome to Rentr</h1>
+                    <div class="table">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Rentable ID</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /#wrapper -->
-
+    </div>
     <!-- jQuery -->
-    <script src="{% static "js/jquery.js" %}" rel="stylesheet" /> </script>
+    <script src="{% static "js/jquery.js" %}" rel="stylesheet"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"> </script>
+    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"></script>
 
     <!-- SideBar GET Store Script -->
     <script>
@@ -66,12 +77,23 @@
         $.getJSON("/store", function( data ) {
             $.each(data, function(key, val){
                 $(".sidebar-nav").append(
-                    "<li class=\"sidebar-brand\"> <a href=\"/store/" + key + "\">" + val.name + "</a></li>"
+                    "<li class=\"sidebar-brand\"> <a href=\"javascript:getStore(" + key + ");\">"
+                    + val.name + "</a></li>"
                 );
            })
         });
     });
     </script>
-
+    <script>
+        function getStore( store ){
+            $.getJSON("/rentable/", { store : store}, function( data ){
+                $.each(data, function(key, val){
+                    $(".tableBody").append(
+                        "<tr><td>" + key + "</td><td>" + val.type + "</td></tr>"
+                    );
+                })
+            });
+        }
+    </script>
 </body>
 </html>

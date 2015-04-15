@@ -11,8 +11,11 @@ from rest_framework.views import APIView
 class RentableList(APIView):
 
     # Returns a list of rentables
-    def get(self, request, format='json'):
-        rentals = Rentable.objects.all()
+    def get(self, request, store, format='json'):
+        if store != None:
+            rentals = Rentable.objects.all(store=store)
+        else:
+            rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
         return Response(serializer.data)
 
