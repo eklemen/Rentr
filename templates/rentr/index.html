@@ -87,6 +87,7 @@
     <script>
         function getStore( store ){
             $.getJSON("/rentable/", { store : store}, function( data ){
+                $(".tableBody").remove();
                 $.each(data, function(key, val){
                     $(".tableBody").append(
                         "<tr><td>" + key + "</td><td>" + val.type + "</td></tr>"
