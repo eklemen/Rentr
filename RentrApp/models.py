@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 MAX_SIZE = 100
 
-# products that will appear in catalog/inventory
+# products that will app ear in catalog/inventory
 class Rentable(models.Model):
     type = models.CharField(max_length=MAX_SIZE,default='Default Product Name')
     isRented = models.BooleanField(default=False)
