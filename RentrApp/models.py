@@ -9,7 +9,7 @@ class Rentable(models.Model):
     isRented = models.BooleanField(default=False)
     dateRented = models.DateTimeField(null=True)
     dateDue = models.DateTimeField(null=True)
-    dateReturned = models.DateTimeField(null=True)
+    dateReturned = models.DateTimeField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     store = models.ForeignKey('Store', null=True)
 
