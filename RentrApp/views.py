@@ -13,7 +13,7 @@ class RentableList(APIView):
     # Returns a list of rentables
     def get(self, request, store, format='json'):
         if store != None:
-            rentals = Rentable.objects.all(store=store)
+            rentals = Rentable.objects.filter(store=store)
         else:
             rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
