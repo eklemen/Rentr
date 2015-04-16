@@ -7,5 +7,8 @@ python:
 	- "3.4"
 # command to install dependencies
 install: "pip install -r requirements.txt"
+before_script: 
+	- python manage.py makemigrations
+	- python manage.py migrate
 # command to run tests
-scritp: manage.py test
+scritp: python manage.py test
