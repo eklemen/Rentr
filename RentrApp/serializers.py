@@ -9,7 +9,7 @@ class RentableSerializer(serializers.ModelSerializer):
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ('pk', 'name', 'address', 'phoneNum')
+        fields = ('name', 'address', 'phoneNum')
 
 class RentalSerializer(serializers.ModelSerializer):
     class Meta:
