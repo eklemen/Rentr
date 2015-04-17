@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.utils.datastructures import MultiValueDictKeyError
 from RentrApp.models import Rentable, Store, Rental
 from RentrApp.serializers import RentableSerializer, StoreSerializer, RentalSerializer
 from rest_framework import status
@@ -12,10 +13,10 @@ class RentableList(APIView):
 
     # Returns a list of rentables
     def get(self, request, format='json'):
-        store = request.query_params['store']
-        if store != None:
+        try:
+            store = request.query_params['store']
             rentals = Rentable.objects.filter(store=store)
-        else:
+        except MultiValueDictKeyError:
             rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
         return Response(serializer.data)

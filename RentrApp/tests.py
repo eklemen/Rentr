@@ -12,7 +12,7 @@ class RentableListTestCase(APITestCase):
         print("********************************************")
         print("Test the creation of a rentable using a POST")
         print("********************************************")
-        url = reverse('rentableList')
+        url = reverse('rentable')
         data = {'store': None,
                 'type': unicode('WaveRunner'),
                 'isRented': True,
@@ -31,7 +31,7 @@ class RentableListTestCase(APITestCase):
         print("*****************************************************")
         print("Test the creation of an invalid rentable using a POST")
         print("*****************************************************")
-        url = reverse('rentableList')
+        url = reverse('rentable')
         data = {'store': '',
                 'type': '',
                 'isRented': '',
@@ -45,7 +45,7 @@ class RentableListTestCase(APITestCase):
 
     # Using a GET returns a list of all objects
     def test_rentable_list(self):
-        url = reverse('rentableList')
+        url = reverse('rentable')
         print("***********************************")
         print("Test using a GET to get all objects")
         print("***********************************")
@@ -65,7 +65,7 @@ class RentableListTestCase(APITestCase):
 
     # Using a Get when no rentables are saved returns an empty array
     def test_empty_rentable_list(self):
-        url = reverse('rentableList')
+        url = reverse('rentable')
         print("**********************************************")
         print("Test using a GET to get an empty rentable list")
         print("**********************************************")
@@ -79,7 +79,7 @@ class RentableDetailTestCase(APITestCase):
         print("***************************************************")
         print("Test using a GET to get a rentable by a specific pk")
         print("***************************************************")
-        createUrl = reverse('rentableList')
+        createUrl = reverse('rentable')
         data = {'store': None,
                 'type': unicode('WaveRunner'),
                 'isRented': True,
@@ -87,7 +87,7 @@ class RentableDetailTestCase(APITestCase):
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z')}
         postResponse = self.client.post(createUrl, data, format='json')
-        url = reverse('rentable', args="1")
+        url = reverse('rentableDetail', kwargs={'pk': '1'})
         getResponse = self.client.get(url, format='json')
         print("Expected: %s" % postResponse.data)
         print("Returned: %s" % getResponse.data)
@@ -97,7 +97,7 @@ class RentableDetailTestCase(APITestCase):
         print("*******************************************************")
         print("Test using a GET to get a 404 when no rentable is found")
         print("*******************************************************")
-        url = reverse('rentable', args='5')
+        url = reverse('rentableDetail', args='5')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         print("Expected Status Code %s" % (status.HTTP_404_NOT_FOUND))
@@ -109,7 +109,7 @@ class RentableDetailTestCase(APITestCase):
         print("********************************************")
         print("Test the creation of a rentable using a POST")
         print("********************************************")
-        url = reverse('rentableList')
+        url = reverse('rentable')
         data = {'store': None,
                 'type': unicode('WaveRunner'),
                 'isRented': True,
@@ -118,7 +118,7 @@ class RentableDetailTestCase(APITestCase):
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),} 
         response = self.client.post(url, data, format='json')
         # Now edit the data
-        url = reverse('rentable', args='1')
+        url = reverse('rentableDetail', args='1')
         data['isRented'] = False
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -133,7 +133,7 @@ class RentableDetailTestCase(APITestCase):
         print("Test the creation of an invalid rentable using a POST")
         print("*****************************************************")
         # Create Rentable
-        url = reverse('rentableList')
+        url = reverse('rentable')
         data = {'store': None,
                 'type': unicode('WaveRunner'),
                 'isRented': True,
@@ -142,7 +142,7 @@ class RentableDetailTestCase(APITestCase):
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),} 
         response = self.client.post(url, data, format='json')
         # Edit rentable
-        url = reverse('rentable', args="1")
+        url = reverse('rentableDetail', args="1")
         data = {'store': '',
                 'type': '',
                 'isRented': '',
@@ -298,7 +298,7 @@ class RentalListTestCase(APITestCase):
 
     # Using a Get when no rentables are saved returns an empty array
     def test_empty_rental_list(self):
-        url = reverse('rentableList')
+        url = reverse('rentable')
         print("**********************************************")
         print("Test using a GET to get an empty rental list")
         print("**********************************************")

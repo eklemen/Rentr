@@ -82,7 +82,7 @@
             _.sortBy(data, 'dateDue');
             $.each(data, function(key, val){
                 $(".tableBody").append(
-                    "<tr><td>" + key + "</td><td>" + val.type + "</td></tr>"
+                    "<tr><td>" + key + "</td><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
                 );
             })
         });
