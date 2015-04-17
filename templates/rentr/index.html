@@ -34,8 +34,8 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
-                    Locations
+                <a href="">
+                    All Locations
                 </a>
             </li>
         </ul>
@@ -47,13 +47,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Welcome to Rentr</h1>
+                    <div class="header">
+                        <h1>Welcome to Rentr</h1>
+                    </div>
                     <div class="table">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Rentable ID</th>
                                     <th>Type</th>
+                                    <th>Date Due</th>
                                 </tr>
                             </thead>
                             <tbody class="tableBody"></tbody>
@@ -81,12 +83,12 @@
             $(".tableBody").empty();
             $.each(_.sortBy(data, "dateDue"), function(key, val){
                 $(".tableBody").append(
-                    "<tr><td>" + key + "</td><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
+                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
                 );
             })
         });
 
-        $.getJSON("/store", function( data ) {
+        $.getJSON("/storeList", function( data ) {
             $.each(data, function(key, val){
                 $(".sidebar-nav").append(
                     "<li class='sidebar-brand'> <a href=\"javascript:getStore(" + val.pk + ");\">"
@@ -98,11 +100,17 @@
     </script>
     <script>
         function getStore( store ){
+            $(".header").empty()
+
+            $.getJSON("/store/" + store, function( store ){
+                $(".header").append("<h1>" + store.name + "</h1>");
+            });
+
             $.getJSON("/rentable/", { store : store}, function( data ){
                 $(".tableBody").empty();
                 $.each(data, function(key, val){
                     $(".tableBody").append(
-                        "<tr><td>" + key + "</td><td>" + val.type + "</td></tr>"
+                        "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
                     );
                 })
             });

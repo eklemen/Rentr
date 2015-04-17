@@ -7,8 +7,8 @@ MAX_SIZE = 100
 class Rentable(models.Model):
     type = models.CharField(max_length=MAX_SIZE,default='Default Product Name')
     isRented = models.BooleanField(default=False)
-    dateRented = models.DateTimeField(null=True)
-    dateDue = models.DateTimeField(null=True)
+    dateRented = models.DateTimeField(null=True, blank=True)
+    dateDue = models.DateTimeField(null=True, blank=True)
     dateReturned = models.DateTimeField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     store = models.ForeignKey('Store', null=True)
