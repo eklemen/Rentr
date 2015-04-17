@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('isRented', models.BooleanField(default=False)),
                 ('dateRented', models.DateTimeField(null=True)),
                 ('dateDue', models.DateTimeField(null=True)),
-                ('dateReturned', models.DateTimeField(null=True)),
-                ('image', models.ImageField(null=True, upload_to=b'')),
+                ('dateReturned', models.DateTimeField(null=True, blank=True)),
+                ('image', models.ImageField(null=True, upload_to=b'', blank=True)),
             ],
         ),
         migrations.CreateModel(
