@@ -71,13 +71,26 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"></script>
 
+    <!-- lodash Core JavaScript -->
+    <script src="{% static "js/lodash.js" %}" rel="stylesheet"></script>
+
     <!-- SideBar GET Store Script -->
     <script>
     $(document).ready( function (){
+        $.getJSON("/rentable/", function( data ){
+            $(".tableBody").empty();
+            _.sortBy(data, 'dateDue');
+            $.each(data, function(key, val){
+                $(".tableBody").append(
+                    "<tr><td>" + key + "</td><td>" + val.type + "</td></tr>"
+                );
+            })
+        });
+
         $.getJSON("/store", function( data ) {
             $.each(data, function(key, val){
                 $(".sidebar-nav").append(
-                    "<li class=\"sidebar-brand\"> <a href=\"javascript:getStore(" + val.pk + ");\">"
+                    "<li class='sidebar-brand'> <a href=\"javascript:getStore(" + val.pk + ");\">"
                     + val.name + "</a></li>"
                 );
            })
