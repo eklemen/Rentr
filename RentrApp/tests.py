@@ -216,7 +216,8 @@ class StoreListTestCase(APITestCase):
         print("Test the creation of a store using a POST")
         print("********************************************")
         url = reverse('storeList')
-        data = {'name': unicode('Hooters'),
+        data = {'pk': 1,
+                'name': unicode('Hooters'),
                 'address': unicode('123 Fun Lane'),
                 'phoneNum': unicode('850-374-9283')}
         response = self.client.post(url, data, format='json')
