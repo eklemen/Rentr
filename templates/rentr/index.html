@@ -79,8 +79,7 @@
     $(document).ready( function (){
         $.getJSON("/rentable/", function( data ){
             $(".tableBody").empty();
-            _.sortBy(data, 'dateDue');
-            $.each(data, function(key, val){
+            $.each(_.sortBy(data, "dateDue"), function(key, val){
                 $(".tableBody").append(
                     "<tr><td>" + key + "</td><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
                 );
