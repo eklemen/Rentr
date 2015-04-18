@@ -15,7 +15,7 @@ class RentableList(APIView):
     def get(self, request, format='json'):
         try:
             store = request.query_params['store']
-            rentals = Rentable.objects.filter(store=store)
+            rentals = Rentable.objects.filter(store=store, isRented=False)
         except MultiValueDictKeyError:
             rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
