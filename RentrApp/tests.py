@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import length
 from setuptools.compat import unicode
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -382,3 +383,31 @@ class RentalDetailTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         print("Expected Status Code %s" % (status.HTTP_400_BAD_REQUEST))
         print("Returned Status Code %s" % (response.status_code))
+
+    def test_rented_get(self):
+        print("*****************************************************")
+        print("Test GET of All Rented Rentables")
+        print("*****************************************************")
+        # Create Rented Rentables
+        url = reverse('rentable')
+        for x in range(0,3):
+            data = {'store': None,
+                    'type': unicode('WaveRunner'),
+                    'isRented': True,
+                    'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
+                    'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
+                    'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
+            postRequset = self.client.post(url, data, format='json')
+            self.assertEqual(postRequset.status_code, status.HTTP_201_CREATED, msg="Test POST for Rentable")
+        # Create NonRented Rentable
+        data = {'store': None,
+                'type': unicode('WaveRunner'),
+                'isRented': False,
+                'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
+                'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
+                'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
+        self.client.post(url, data, format='json')
+        # Get the Rented Rentables
+        getUrl = reverse("rented")
+        response = self.client.get(getUrl, data, format='json')
+        self.assertEqual(len(response.data), 3, msg="Expect 3 Rented Rentables")

@@ -15,7 +15,7 @@ class RentableList(APIView):
     def get(self, request, format='json'):
         try:
             store = request.query_params['store']
-            rentals = Rentable.objects.filter(store=store)
+            rentals = Rentable.objects.filter(store=store, isRented=False)
         except MultiValueDictKeyError:
             rentals = Rentable.objects.all()
         serializer = RentableSerializer(rentals, many=True)
@@ -119,3 +119,10 @@ class RentalDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Rented(APIView):
+
+    def get(self, request, format='json'):
+        rented = Rentable.objects.filter(isRented=True)
+        serializer = RentableSerializer(rented, many=True)
+        return Response(serializer.data)

@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'store/(?P<pk>[0-9]+)/$', views.StoreDetail.as_view(), name='store'),
     url(r'storeList/$', views.StoreList.as_view(), name='storeList'),
     url(r'rental/(?P<pk>[0-9]+)/$', views.RentalDetail.as_view(), name='rental'),
-    url(r'rental/$', views.RentalList.as_view(), name='rentalList')
+    url(r'rental/$', views.RentalList.as_view(), name='rentalList'),
+    url(r'rented/$', views.Rented.as_view(), name='rented')
     )
 
