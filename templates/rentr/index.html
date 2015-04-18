@@ -79,7 +79,7 @@
     <!-- SideBar GET Store Script -->
     <script>
     $(document).ready( function (){
-        $.getJSON("/rentable/", function( data ){
+        $.getJSON("/rented/", function( data ){
             $(".tableBody").empty();
             $.each(_.sortBy(data, "dateDue"), function(key, val){
                 $(".tableBody").append(
