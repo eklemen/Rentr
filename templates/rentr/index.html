@@ -17,6 +17,10 @@
 
     <!-- Custom CSS -->
     <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
+    
+    <!--    angularjs  -->
+    <script src="{% static "js/angular-1.3.9/angular.min.js" %}"></script>
+    <script src="{% static "js/angular-1.3.9/angular-resource.min.js" %}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,8 +31,8 @@
 
 </head>
 
-<body>
-    <div id="wrapper">
+<body ng-app="rentr">
+    <div id="wrapper" ng-controller="MainController">
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -56,7 +60,9 @@
                                 <tr>
                                     <th>Type</th>
                                     <th>Date Due</th>
+                                    <th>{[{"banana" + world}]}</th>
                                 </tr>
+                                <tr><td ng-repeat="name in names">{[{name}]}</td></tr>
                             </thead>
                             <tbody class="tableBody"></tbody>
                         </table>
@@ -68,13 +74,16 @@
     <!-- /#wrapper -->
     </div>
     <!-- jQuery -->
-    <script src="{% static "js/jquery.js" %}" rel="stylesheet"></script>
+    <script src="{% static "js/jquery.js" %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
 
     <!-- lodash Core JavaScript -->
-    <script src="{% static "js/lodash.js" %}" rel="stylesheet"></script>
+    <script src="{% static "js/lodash.js" %}"></script>
+    
+    <!-- app.js   -->
+    <script src="{% static "js/app.js" %}"></script>
 
     <!-- SideBar GET Store Script -->
     <script>
