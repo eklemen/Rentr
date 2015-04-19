@@ -11,9 +11,26 @@
 }
 
 .header-brand {
-	margin-top: 10px;
-	height: 100px;
-	width: 200px;
-	border-bottom: 5px solid #867DB0;
+	width: 150px;
+}
+
+.navbar {
+	height: 80px;
+	background: #532B72;
+}
+
+#right-links li{
+        margin-top: 30px;
+	margin-right: 70px;
+	color: white;
+}
+
+#right-links a{
+	color: white;
+	font-size: 150%;
+	text-decoration: none;
+}
+#right-links a:hover{
+	color: #867DB0;
 }
 
