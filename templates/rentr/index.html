@@ -13,7 +13,7 @@
     <title>Rentr</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- Template CSS -->
     <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
@@ -24,8 +24,7 @@
     
     <!-- Angular   -->
     <script src="{% static "bower_components/angular/angular.min.js" %}"></script>
-    <script src="{% static "js/angular-1.3.9/angular-resource.min.js" %}"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>
+    <script src="{% static "bower_components/restangular/dist/restangular.min.js" %}" type="text/javascript"></script>
     <script src="{% static "js/app.js" %}"></script>
 
 
@@ -53,10 +52,6 @@
 			<ul class="navbar navbar-nav navbar-right" id="right-links">
 				<li><a href="#">Logout</a></li>
 			</ul>
-			<ul style="color: white;">
-			    <li>HI</li>
-                <li ng-repeat="name in names">{[{name}]}</li>
-            </ul>
 		</div>
 	</div>
     </nav>
@@ -92,8 +87,8 @@
                             </thead>
                             <tbody class="tableBody">
                                 <tr ng-repeat="rents in rentable">
-                                    <td>{[{rents.store}]}</td>
                                     <td>{[{rents.type}]}</td>
+                                    <td>{[{rents.dateDue}]}</td>
                                     <td>{[{rents.dateRented}]}</td>
                                 </tr>
                             </tbody>
@@ -130,7 +125,7 @@
     <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"></script>
 
     <!-- lodash Core JavaScript -->
-    <script src="{% static "js/lodash.js" %}" rel="stylesheet"></script>
+    <script src="{% static "bower_components/lodash/lodash.min.js" %}" rel="stylesheet"></script>
 
     <!-- SideBar GET Store Script -->
     <script>
