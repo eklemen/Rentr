@@ -123,6 +123,17 @@ class RentalDetail(APIView):
 class Rented(APIView):
 
     def get(self, request, format='json'):
-        rented = Rentable.objects.filter(isRented=True)
-        serializer = RentableSerializer(rented, many=True)
+        try:
+            store = request.query_params['store']
+            rentals = Rentable.objects.filter(store=store, isRented=True)
+        except MultiValueDictKeyError:
+            rentals = Rentable.objects.filter(isRented=True)
+        serializer = RentableSerializer(rentals, many=True)
+        return Response(serializer.data)
+
+class Available(APIView):
+
+    def get(self, request, format='json'):
+        nonRented = Rentable.objects.filter(isRented=False)
+        serializer = RentableSerializer(nonRented, many=True)
         return Response(serializer.data)

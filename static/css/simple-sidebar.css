@@ -7,6 +7,7 @@
 /* Toggle Styles */
 
 #wrapper {
+    margin-top: 80px;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -26,7 +27,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #220439;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -67,12 +68,12 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #2A4D6E;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #fff;
+    color: #2A4D6E;
     background: rgba(255,255,255,0.2);
 }
 
@@ -82,17 +83,17 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 35px;
     font-size: 18px;
     line-height: 60px;
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: white;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
+    color: #867DB0;
     background: none;
 }
 
