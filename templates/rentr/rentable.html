@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Rentr</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
+
+    <!-- Custom Core CSS -->
+    <link href="{% static "css/custom.css" %}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inner navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">
+				<div class="header-brand">
+				    <img class="img-responsive" src="{% static "img/rentr-logo-web.png" %}" 
+				    alt="Rentr Logo"> 
+			        </div>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar navbar-nav navbar-right" id="right-links">
+				<li><a href="#">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+    </nav>
+    <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="">
+			<h3>All Locations<h3>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        	    <div class="row">
+		    <div class="col-lg-8">
+			    <button type="click" class="btn btn-primary hidden-lg hidden-md" id="menu-toggle">
+				    <span>Toggle Menu</span>
+			    </button>
+			    <h1 class="col-sm-offset-3"> Create Rental </h1>
+			    <form class="form-horizontal">
+				    <input type="hidden" value={{pk}} name="pk" />
+				    <div class="form-group">
+					    <label for="cusName" class="col-sm-3 control-label"> 
+					    	Customer Name</label>
+			    		    <div class="col-sm-5">
+						    <input type="text" class="form-control" 
+						    	placeholder="Name">
+					    </div>		    
+				    </div>
+				    <div class="form-group">
+					    <label for="cusPhone" class="col-sm-3 control-label"> 
+					    	Customer Phone Number</label>
+			    		    <div class="col-sm-5">
+						    <input type="tel" class="form-control" 
+						    	placeholder="000 000 0000">
+					    </div>		    
+				    </div>
+				    <div class="form-group">
+					    <label for="cusEmail" class="col-sm-3 control-label"> 
+					    	Customer Email</label>
+			    		    <div class="col-sm-5">
+						    <input type="email" class="form-control" 
+						    	placeholder="user@user.com">
+					    </div>		    
+				    </div>
+				    <div class="form-group">
+					    <label for="cusPrice" class="col-sm-3 control-label"> 
+					    	Price</label>
+			    		    <div class="col-sm-5">
+						    <input type="number" class="form-control" 
+						    	placeholder="0.0">
+					    </div>		    
+				    </div>
+				    <div class="form-group">
+					    <label for="cusPrice" class="col-sm-3 control-label"> 
+					    	Calendar</label>
+			    		    <div class="col-sm-5">
+					    </div>		    
+				    </div>
+				    <div class="form-group col-sm-8">
+					    <div class="col-sm-5 col-sm-offset-3">
+					    <button id="edit" type="submit" name="submit" 
+						class="btn btn-primary">
+						Add</button>
+					   </div>
+			            </div>
+			    </form>
+		    </div>
+       </div>
+    </div>
+    <!-- /#wrapper -->
+    </div>
+    <!-- jQuery -->
+    <script src="{% static "js/jquery.js" %}" rel="stylesheet"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "js/bootstrap.js" %}" rel="stylesheet"></script>
+
+    <!-- lodash Core JavaScript -->
+    <script src="{% static "js/lodash.js" %}" rel="stylesheet"></script>
+
+    <!-- SideBar GET Store Script -->
+    <script>
+
+    $("#menu-toggle").click(function(e) {
+	    e.preventDefault();
+	    $("#wrapper").toggleClass("toggled");
+    });
+        $.getJSON("/storeList", function( data ) {
+            $.each(data, function(key, val){
+                $(".sidebar-nav").append(
+                    "<li class='sidebar-brand'> <a href=\"javascript:getStore(" + val.pk + ");\">"
+                    + val.name + "</a></li>"
+                );
+		$("[id=dropdown-menu]").append(
+			'<option value="store">'+ val.name +'</option>');
+           })
+        });
+    </script>
+
+</body>
+</html>

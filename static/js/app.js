@@ -11,7 +11,7 @@ app.config(function($interpolateProvider) {
 // factories for api calls
 app.factory('Rent', function(Restangular){
     return Restangular.all("rentable");
-});  
+});
 
 // main controller
 app.controller('MainController', function($scope, Restangular, Rent) {
