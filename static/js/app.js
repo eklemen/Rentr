@@ -8,15 +8,16 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('}]}');
 });
 
-// factory for all the api calls
+// factory for api calls
 app.factory('rentFactory', function($resource){
-    return $resource('/rentable.json');
+//    return $resource('/rentable.json');
 
 });
 
-app.controller('MainController', function($scope, rentFactory) {
+// main controller
+app.controller('MainController', function($scope) {
     $scope.world = 'World';
     $scope.names = ['foo', 'bar', 'baz', 'bat'];
-    $scope.foo = rentFactory.query();
-    console.log($scope.foo);
+    
+//    $scope.foo = rentFactory.query();
 });

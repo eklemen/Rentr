@@ -113,6 +113,7 @@
 
             $.getJSON("/store/" + store, function( store ){
                 $(".header").append("<h1>" + store.name + "</h1>");
+                
             });
 
             $.getJSON("/rentable/", { store : store}, function( data ){
