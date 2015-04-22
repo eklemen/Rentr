@@ -127,6 +127,16 @@
                 $(".tableBody").append(
                     "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
                 );
+                var $button = $('<button/>', {
+			      type: 'button',
+			      'class': 'btn btn-success',
+			      text: 'Rent',
+			      click: function() {
+				  window.alert('Hello! My id is '+ this.id);
+				    }
+			    });
+			    $button.appendTo('[name="return-button"]:last');
+                });
             })
         });
 

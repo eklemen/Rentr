@@ -411,3 +411,8 @@ class RentalDetailTestCase(APITestCase):
         getUrl = reverse('rented')
         response = self.client.get(getUrl, data, format='json')
         self.assertEqual(len(response.data), 3, msg="Expect 3 Rented Rentables")
+
+    def test_available_rentables(self):
+        print("*****************************************************")
+        print("Test")
+        print("*****************************************************")
