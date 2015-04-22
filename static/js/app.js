@@ -21,7 +21,7 @@ app.controller('MainController', function($scope, Restangular) {
     var totes = Restangular.all("rentable");
     totes.getList().then(function(rentable){
         $scope.rentable = rentable;
-//        console.log(rentable[0]);
+        console.log(rentable[0]);
 //        return self.rentable;
     });
 }); //end controller
