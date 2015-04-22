@@ -55,7 +55,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <a href="">
-			<h3>All Locations<h3>
+			<h3>All Locations</h3>
                 </a>
             </li>
         </ul>
@@ -121,13 +121,42 @@
     });
 
     $(document).ready( function (){
-        $.getJSON("/rented/", function( data ){
+        $.getJSON("/rentable/", function( data ){
             $(".tableBody").empty();
             $.each(_.sortBy(data, "dateDue"), function(key, val){
                 $(".tableBody").append(
-                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
+                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td>"
+                        + "<td name='return-button'></td></tr>"
                 );
-            })
+                var $button = $('<button/>', {
+			      type: 'button',
+			      'class': 'btn btn-success',
+			      text: 'Rent',
+			      click: function() {
+				  window.alert('Hello! My id is '+ this.id);
+				    }
+			    });
+			    $button.appendTo('[name="return-button"]:last');
+            });
+        });
+
+        $.getJSON("/rented/", function( data ){
+            $(".tableBody2").empty();
+            $.each(_.sortBy(data, "dateDue"), function(key, val){
+                $(".tableBody2").append(
+                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td>"
+                        + "<td name='return-button2'></td></tr>"
+                );
+                var $button2 = $('<button2/>', {
+			      type: 'button',
+			      'class': 'btn btn-success',
+			      text: 'Rent',
+			      click: function() {
+				  window.alert('Hello! My id is '+ this.id);
+				    }
+			    });
+			    $button2.appendTo('[name="return-button2"]:last');
+            });
         });
 
         $.getJSON("/storeList", function( data ) {
@@ -166,6 +195,25 @@
 				    }
 			    });
 			    $button.appendTo('[name="return-button"]:last');
+                })
+            });
+
+            $.getJSON("/rented/", { store : store}, function( data ){
+                $(".tableBody2").empty();
+                $.each(data, function(key, val){
+                    $(".tableBody2").append(
+                        "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td>"
+			+ "<td name='return-button2'></td></tr>");
+
+			    var $button2 = $('<button2/>', {
+			      type: 'button',
+			      'class': 'btn btn-success',
+			      text: 'Rent',
+			      click: function() {
+				  window.alert('Hello! My id is '+ this.id);
+				    }
+			    });
+			    $button2.appendTo('[name="return-button2"]:last');
                 })
             });
         }
