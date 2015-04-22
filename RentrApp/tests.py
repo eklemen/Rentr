@@ -53,7 +53,7 @@ class RentableListTestCase(APITestCase):
         for x in range(0, 5):
             data = {'store': None,
                 'type': unicode('WaveRunner'),
-                'isRented': True,
+                'isRented': False,
                 'dateRented': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateDue': unicode('2015-03-11T23:29:56.947000Z'),
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
@@ -408,6 +408,6 @@ class RentalDetailTestCase(APITestCase):
                 'dateReturned': unicode('2015-03-11T23:29:56.947000Z'),}
         self.client.post(url, data, format='json')
         # Get the Rented Rentables
-        getUrl = reverse("rented")
+        getUrl = reverse('rented')
         response = self.client.get(getUrl, data, format='json')
         self.assertEqual(len(response.data), 3, msg="Expect 3 Rented Rentables")
