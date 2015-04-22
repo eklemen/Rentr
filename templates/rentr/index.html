@@ -65,7 +65,8 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         	    <div class="row">
-		    <div class="col-lg-12">
+		    <div class="col-lg-6">
+		    <h2> Available </h2>
 		    <div class="table">
 			    <button type="click" class="btn btn-primary hidden-lg hidden-md" id="menu-toggle">
 				    <span>Toggle Menu</span>
@@ -75,13 +76,28 @@
                                 <tr>
                                     <th>Type</th>
                                     <th>Date Due</th>
-				    <th>Returned</th>
+				    <th>Rent</th>
                                 </tr>
                             </thead>
                             <tbody class="tableBody"></tbody>
                         </table>
                     </div>
-                </div>
+		    </div>
+		    <div class="col-lg-6">
+			    <h2> Rented </h2>
+			    <div class="table2">
+				<table class="table table-hover">
+				    <thead>
+					<tr>
+					    <th>Type</th>
+					    <th>Date Due</th>
+					    <th>Return</th>
+					</tr>
+				    </thead>
+				    <tbody class="tableBody2"></tbody>
+				</table>
+			    </div>
+		    </div>
             </div>
         </div>
     </div>
@@ -144,8 +160,7 @@
 			    var $button = $('<button/>', {
 			      type: 'button',
 			      'class': 'btn btn-success',
-			      id: 'anID',
-			      text: 'Return',
+			      text: 'Rent',
 			      click: function() {
 				  window.alert('Hello! My id is '+ this.id);
 				    }
