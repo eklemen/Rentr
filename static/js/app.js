@@ -18,15 +18,10 @@ app.controller('MainController', function($scope, Restangular) {
     $scope.world = 'World';
     $scope.names = ['foo', 'bar', 'baz', 'bat'];
     
-    var total = Restangular.all('rentable', '/rentable').getList();
-
-    console.log(total);
-    
-    var rentable = [];
-    var totes = Restangular.all("rentable/");
-    $scope.rentable = totes.getList().then(function(rentable){
-        console.log(rentable[0]);
-        return rentable;
-    })
-    console.log($scope.rentable);
-});
+    var totes = Restangular.all("rentable");
+    totes.getList().then(function(rentable){
+        $scope.rentable = rentable;
+//        console.log(rentable[0]);
+//        return self.rentable;
+    });
+}); //end controller

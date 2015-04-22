@@ -90,7 +90,13 @@
 				                    <th>Rent</th>
                                 </tr>
                             </thead>
-                            <tbody class="tableBody"></tbody>
+                            <tbody class="tableBody">
+                                <tr ng-repeat="rents in rentable">
+                                    <td>{[{rents.store}]}</td>
+                                    <td>{[{rents.type}]}</td>
+                                    <td>{[{rents.dateRented}]}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
 		    </div>
@@ -134,25 +140,25 @@
 	    $("#wrapper").toggleClass("toggled");
     });
 
-    $(document).ready( function (){
-        $.getJSON("/rented/", function( data ){
-            $(".tableBody").empty();
-            $.each(_.sortBy(data, "dateDue"), function(key, val){
-                $(".tableBody").append(
-                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
-                );
-            })
-        });
-
-        $.getJSON("/storeList", function( data ) {
-            $.each(data, function(key, val){
-                $(".sidebar-nav").append(
-                    "<li class='sidebar-brand'> <a href=\"javascript:getStore(" + val.pk + ");\">"
-                    + val.name + "</a></li>"
-                );
-           })
-        });
-    });
+//    $(document).ready( function (){
+//        $.getJSON("/rented/", function( data ){
+//            $(".tableBody").empty();
+//            $.each(_.sortBy(data, "dateDue"), function(key, val){
+//                $(".tableBody").append(
+//                    "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td></tr>"
+//                );
+//            })
+//        });
+//
+//        $.getJSON("/storeList", function( data ) {
+//            $.each(data, function(key, val){
+//                $(".sidebar-nav").append(
+//                    "<li class='sidebar-brand'> <a href=\"javascript:getStore(" + val.pk + ");\">"
+//                    + val.name + "</a></li>"
+//                );
+//           })
+//        });
+//    });
     </script>
     <script>
         function getStore( store ){
@@ -164,24 +170,24 @@
 
 
 
-            $.getJSON("/rentable/", { store : store}, function( data ){
-                $(".tableBody").empty();
-                $.each(data, function(key, val){
-                    $(".tableBody").append(
-                        "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td>"
-			+ "<td name='return-button'></td></tr>");
-
-			    var $button = $('<button/>', {
-			      type: 'button',
-			      'class': 'btn btn-success',
-			      text: 'Rent',
-			      click: function() {
-				  window.alert('Hello! My id is '+ this.id);
-				    }
-			    });
-			    $button.appendTo('[name="return-button"]:last');
-                })
-            });
+//            $.getJSON("/rentable/", { store : store}, function( data ){
+//                $(".tableBody").empty();
+//                $.each(data, function(key, val){
+//                    $(".tableBody").append(
+//                        "<tr><td>" + val.type + "</td><td>" + val.dateDue + "</td>"
+//			+ "<td name='return-button'></td></tr>");
+//
+//			    var $button = $('<button/>', {
+//			      type: 'button',
+//			      'class': 'btn btn-success',
+//			      text: 'Rent',
+//			      click: function() {
+//				  window.alert('Hello! My id is '+ this.id);
+//				    }
+//			    });
+//			    $button.appendTo('[name="return-button"]:last');
+//                })
+//            });
         }
     </script>
 </body>
