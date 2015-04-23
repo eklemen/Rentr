@@ -64,6 +64,7 @@
 			<h3>All Locations</h3>
                 </a>
             </li>
+                <li style="color: white;" ng-repeat="store in storelist">{[{store.name}]}</li>   
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -88,8 +89,8 @@
                             <tbody class="tableBody">
                                 <tr ng-repeat="rents in rentable">
                                     <td>{[{rents.type}]}</td>
-                                    <td>{[{rents.dateDue}]}</td>
-                                    <td>{[{rents.dateRented}]}</td>
+                                    <td>{[{rents.dateDue | amDateFormat:'h:mma ddd, MMM Do'}]}</td>
+                                    <td>{[{rents.dateRented | amDateFormat:'h:mma ddd, MMM Do'}]}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -127,6 +128,10 @@
     <!-- lodash Core JavaScript -->
     <script src="{% static "bower_components/lodash/lodash.min.js" %}" rel="stylesheet"></script>
 
+    <!-- MomentJS - Time manipulator -->
+    <script src="{% static "bower_components/moment/moment.js" %}" ></script>
+    <script src="{% static "bower_components/angular-moment/angular-moment.min.js" %}" ></script>
+   
     <!-- SideBar GET Store Script -->
     <script>
 

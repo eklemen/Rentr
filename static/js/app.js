@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('rentr', ['restangular']);
+var app = angular.module('rentr', ['restangular', 'angularMoment']);
 
 // changes syntax of angular so its not the same as django
 app.config(function($interpolateProvider) {
@@ -8,21 +8,29 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('}]}');
 });
 
-// factories for api calls
-app.factory('Rent', function(Restangular){
-    return Restangular.all("rentable");
+// factory for api calls
+app.factory('calls', function(Restangular){
+    return {
+        rent: Restangular.all("rentable"),
+        store: Restangular.all("storeList")
+    }
 });
 
 // main controller
-app.controller('MainController', function($scope, Restangular, Rent) {
+app.controller('MainController', function($scope, Restangular, calls) {
     $scope.world = 'World';
     $scope.names = ['foo', 'bar', 'baz', 'bat'];
 
-    var totes = Restangular.all("rentable");
-    Rent.getList().then(function(rentable){
+//    var totes = Restangular.all("rentable");
+    calls.rent.getList().then(function(rentable){
         $scope.rentable = rentable;
         console.log(rentable[0]);
         console.log(rentable[1]);
-//        return self.rentable;
+    });
+    
+    calls.store.getList().then(function(storelist){
+        $scope.storelist = storelist;
+        console.log(storelist[0]);
+        console.log(storelist[1]);
     });
 }); //end controller
