@@ -37,7 +37,7 @@
 
 </head>
 
-<body ng-controller="MainController">
+<body ng-cloak ng-controller="MainController">
     <nav class="navbar navbar-inner navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -108,7 +108,10 @@
 					</tr>
 				    </thead>
 				    <tbody class="tableBody2">
-				        <tr>
+				        <tr ng-repeat="rented in rentedList">
+				            <td>{[{rented.type}]}</td>
+				            <td>{[{rented.dateDue | amDateFormat:'h:mma ddd, MMM Do'}]}</td>
+				            <td>{[{rented.isRented}]}</td>
 				        </tr>
 				    </tbody>
 				</table>

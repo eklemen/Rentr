@@ -12,7 +12,8 @@ app.config(function($interpolateProvider) {
 app.factory('calls', function(Restangular){
     return {
         rent: Restangular.all("rentable"),
-        store: Restangular.all("storeList")
+        store: Restangular.all("storeList"),
+        rentedList: Restangular.all("rented")
     }
 });
 
@@ -25,12 +26,15 @@ app.controller('MainController', function($scope, Restangular, calls) {
     calls.rent.getList().then(function(rentable){
         $scope.rentable = rentable;
         console.log(rentable[0]);
-        console.log(rentable[1]);
     });
     
     calls.store.getList().then(function(storelist){
         $scope.storelist = storelist;
         console.log(storelist[0]);
-        console.log(storelist[1]);
     });
+    
+    calls.rentedList.getList().then(function(rentedList){
+        $scope.rentedList = rentedList;
+        console.log(rentedList[0]);
+    })
 }); //end controller
